@@ -1,0 +1,105 @@
+.common {
+    text-align: center;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+ }
+ 
+ 
+ .header {
+  
+    background-color: rgb(91, 8, 83);
+    color: white;
+    height: 100px;
+    line-height: 100px;
+    width: 100%;
+    margin:0;
+ }
+ .title {
+      font-weight: bold;
+      color: darkblue;
+      list-style-position: inside;
+   padding-left: 0%;
+   text-align: center;
+ }
+ 
+ 
+ .mainbody {
+    background-color: rgb(221, 229, 245);
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+    padding: 20px
+ }
+ 
+ 
+ .Footer {
+    position: fixed;
+    background-color: rgb(91, 8, 83);
+    color: white;
+    bottom: 0px;
+    left: 5px;
+    right: 5px;
+    height: 25px;
+    line-height: 25px;
+ }
+ 
+ 
+ img {
+    display: block;
+    width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+ }
+ 
+ 
+ nav {
+    background-color: lightgrey;
+    padding: 10px;
+    overflow: hidden;
+ }
+ 
+ 
+ nav a {
+    color: #333;
+    text-decoration: none;
+    padding: 20px;
+    font-weight: bold;
+ }
+ 
+ 
+ nav a:hover {
+    background-color: #ccc;
+ }
+ 
+ .centered-list {
+   list-style-position: inside;
+   padding-left: 0%;
+   text-align: center;
+ }
+ ul li {
+   font-size: 1.3em}
+
+   ol li {
+      font-size: 1em;  /* Normal size for numbered list */
+  }
+  .photo-row {
+   display: flex;
+   justify-content: center;
+   gap: 20px; /* space between images */
+   margin-top: 20px;
+   flex-wrap: wrap; /* makes it responsive on smaller screens */
+}
+#top {
+   text-decoration: underline;
+   align-content: center;
+}
+.large-img {
+   width: 60%; /* or try 70%, 80%, or even exact pixels like 600px */
+   display: block;
+   margin: 0 auto;
+   border-radius: 10px;
+   box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+body {
+   margin: 0;
+   background-color: rgb(221, 229, 245);
+}

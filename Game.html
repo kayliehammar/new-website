@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kaylie's Maze Chase</title>
+  <style>
+    body {
+      margin: 0;
+      background-color: #fff0f5;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+      text-align: center;
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #ff69b4;
+      margin: 10px 0 0;
+    }
+    p {
+      margin-top: 5px;
+      font-size: 1.2em;
+      color: #555;
+    }
+    canvas {
+      display: block;
+      margin: 20px auto;
+      background: #fff;
+      border: 4px dashed #ffb6c1;
+      box-shadow: 0 0 20px #ffc0cb;
+    }
+  </style>
+</head>
+<body>
+  <h1>Kaylie's Maze Chase</h1>
+  <p>Instructions: You are a car! Use arrow keys to collect all the hearts and avoid the ghosties. Each time you collect all the hearts, a new level begins with one more heart. If you get caught by a ghost, you start back at level one!</p>
+  <canvas id="game" width="400" height="400"></canvas>
+
+  <script>
+    const canvas = document.getElementById("game");
+    const ctx = canvas.getContext("2d");
+    const gridSize = 20;
+
+    let player = { x: 1, y: 1 };
+    let level = 1;
+    let hearts = generateHearts(level);
+    let ghost = { x: 8, y: 8 };
+    let score = 0;
+
+    function generateHearts(count) {
+      const arr = [];
+      while (arr.length < count + 2) {
+        let x = Math.floor(Math.random() * 18) + 1;
+        let y = Math.floor(Math.random() * 18) + 1;
+        if (!(x === player.x && y === player.y)) {
+          arr.push({ x, y });
+        }
+      }
+      return arr;
+    }
+
+    const drawTile = (x, y, color, emoji) => {
+      ctx.fillStyle = color;
+      ctx.fillRect(x * gridSize, y * gridSize, gridSize, gridSize);
+      ctx.font = "16px Arial";
+      ctx.textAlign = "center";
+      ctx.fillText(emoji, x * gridSize + 10, y * gridSize + 15);
+    };
+
+    const drawGame = () => {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawTile(player.x, player.y, "#ff69b4", "🚗"); // car
+
+      hearts.forEach(h => drawTile(h.x, h.y, "#ffe4e1", "❤️")); // heart
+      drawTile(ghost.x, ghost.y, "#d8bfd8", "👻"); // ghost
+    };
+
+    const movePlayer = (dx, dy) => {
+      const newX = player.x + dx;
+      const newY = player.y + dy;
+      if (newX >= 0 && newX < 20 && newY >= 0 && newY < 20) {
+        player.x = newX;
+        player.y = newY;
+      }
+      checkCollisions();
+      drawGame();
+    };
+
+    const checkCollisions = () => {
+      hearts = hearts.filter(h => {
+        if (h.x === player.x && h.y === player.y) {
+          score++;
+          return false;
+        }
+        return true;
+      });
+
+      if (player.x === ghost.x && player.y === ghost.y) {
+        alert("Oh no! A ghostie caught you! Game over. Starting back at Level 1. Final Score: " + score);
+        level = 1;
+        score = 0;
+        player = { x: 1, y: 1 };
+        hearts = generateHearts(level);
+        ghost = { x: 8, y: 8 };
+        return;
+      }
+
+      if (hearts.length === 0) {
+        alert("Yay! You collected all the hearts! Moving on to Level " + (level + 1));
+        level++;
+        player = { x: 1, y: 1 };
+        hearts = generateHearts(level);
+        ghost = { x: 8, y: 8 };
+      }
+    };
+
+    const moveGhost = () => {
+      const dx = player.x > ghost.x ? 1 : player.x < ghost.x ? -1 : 0;
+      const dy = player.y > ghost.y ? 1 : player.y < ghost.y ? -1 : 0;
+      ghost.x += dx;
+      ghost.y += dy;
+    };
+
+    document.addEventListener("keydown", e => {
+      switch (e.key) {
+        case "ArrowUp": movePlayer(0, -1); break;
+        case "ArrowDown": movePlayer(0, 1); break;
+        case "ArrowLeft": movePlayer(-1, 0); break;
+        case "ArrowRight": movePlayer(1, 0); break;
+      }
+    });
+
+    setInterval(() => {
+      moveGhost();
+      drawGame();
+    }, 600);
+
+    drawGame();
+  </script>
+</body>
+</html>
