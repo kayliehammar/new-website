@@ -24,10 +24,11 @@
  
  .mainbody {
     background-color: rgb(221, 229, 245);
-    max-width: 800px;
+    width: 90%;
+    max-width: 1200px;
     margin: 0 auto;
     text-align: center;
-    padding: 20px
+    padding: 20px    
  }
  
  
@@ -44,10 +45,13 @@
  
  
  img {
-    display: block;
-    width: 25%;
-    margin-left: auto;
-    margin-right: auto;
+   img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+      margin: 0 auto;
+  }
+  
  }
  
  
